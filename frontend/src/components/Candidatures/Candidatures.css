@@ -1,0 +1,207 @@
+
+
+/* Container */
+.candidate-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #F5F5F5 !important;
+}
+
+/* Top Bar */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.top-bar h2 {
+  margin: 0;
+  font-weight: bold;
+  font-size: 28px;
+  color: #4C4541;
+}
+
+/* Admin Info */
+.admin-info {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.admin-details {
+  display: flex;
+  flex-direction: column;
+  margin-right: 15px;
+}
+
+.admin-role {
+  font-size: 0.8em;
+  color: #999;
+}
+
+.icon-button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.icon-button img {
+  width: 24px;
+  height: 24px;
+}
+
+.icon-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+}
+
+.icon-button:hover::before {
+  width: 30px;
+  height: 30px;
+}
+
+.admin-name {
+  margin-left: 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.admin-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+}
+
+/* Search Bar */
+.search-bar-container {
+  margin-bottom: 20px;
+}
+
+.search-bar .MuiOutlinedInput-root {
+  border-radius: 20px;
+}
+
+.search-icon {
+  margin-right: 10px;
+}
+
+/* Summary Section */
+.summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+}
+
+.summary-item img {
+  margin-right: 10px;
+}
+
+.summary-item span {
+  font-size: 1.2em;
+  color: #4C4541;
+}
+
+/* Candidate Table */
+.candidate-table {
+  margin-bottom: 20px;
+  border-radius: 20px !important;
+}
+
+.MuiTableCell-root {
+  color: #303972 !important;
+  padding: 16px;
+  font-weight: bold !important;
+  font-family: 'Poppins', sans-serif !important;
+  text-align: center !important;
+}
+
+.MuiTableHead-root {
+  background-color: white;
+}
+
+.MuiTableBody-root .MuiTableRow-root {
+  transition: background-color 0.3s;
+}
+
+.MuiTableBody-root .MuiTableRow-root:hover {
+  background-color: white;
+}
+
+/* Align text to the left for the job title header */
+.MuiTableCell-root.job-title-header {
+  text-align: left !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+.job-title-header {
+  text-align: left !important;
+  font-family: 'Poppins', sans-serif !important;
+  color: black; /* for other content columns */
+}
+
+.job-title-cell {
+  color: #5F2EE5 !important;
+  text-align: left !important;
+}
+
+.job-title-cell:hover .job-title {
+  text-decoration: underline;
+}
+
+.content-cell {
+  color: black !important;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.pagination span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 5px;
+  padding: 5px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #7a6eaa; /* Light purple color for default state */
+  background-color: #f9fafb; /* Background color for default state */
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+}
+
+.pagination span.active {
+  background-color: #1e5245;
+  color: white;
+}
+
+.pagination span:hover:not(.active) {
+  background-color: #e0e0e0; /* Light grey background on hover */
+}

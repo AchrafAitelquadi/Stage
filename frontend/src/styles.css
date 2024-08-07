@@ -1,0 +1,74 @@
+html, body {
+    touch-action: none;
+}
+
+body {
+    margin: 0;
+    overflow: hidden; /* Prevent body from scrolling */
+    font-family: Arial, sans-serif;
+}
+.content{
+    background-color: #F5F5F5;
+}
+.app {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    background-color: #2F4F41;
+    color: white;
+    height: 100vh;
+    padding-top: 20px;
+    position: fixed;
+    transition: width 0.3s, transform 0.3s;
+}
+
+.sidebar.closed {
+    width: 0;
+    transform: translateX(-100%);
+}
+
+.content {
+    flex: 1;
+    overflow-y: auto; /* Allow content to scroll */
+    margin-left: 250px; /* Offset to account for fixed sidebar */
+    padding: 20px;
+    transition: margin-left 0.3s;
+}
+
+.content.shifted {
+    margin-left: 250px;
+}
+
+@media (min-width: 1300px) {
+    .content {
+        margin-left: 250px; /* Should match the sidebar width */
+    }
+
+    .content.shifted {
+        margin-left: 250px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .content {
+        margin-left: 0; /* Content should fill the screen */
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .menu-item {
+        justify-content: center;
+        border-radius: 0;
+    }
+
+    .menu-icon {
+        position: relative;
+        margin-right: 0;
+    }
+}

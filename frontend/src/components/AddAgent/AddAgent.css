@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@400;700&display=swap');
+
+
+.page-container {
+    padding: 20px;
+    background-color: #F5F5F5;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .back-arrow {
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .admin-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .admin-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 15px;
+  }
+  
+  .admin-name {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .admin-role {
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .admin-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  .form-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+  
+  .form-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 26px;
+    font-weight: bold;
+    font: Monospace;
+    color : #4C4541
+  }
+  
+  .agent-form .form-label {
+    color : #212121;
+    font-family: 'Zen Kaku Gothic Antique', sans-serif;
+    font-size: 19px;
+  }
+  
+  .agent-form .form-control {
+    margin-bottom: 20px;
+    border: 3px solid #E0E0E0;
+  }
+  
+  .photo-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px dashed #cccccc;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+  }
+  
+  .photo-placeholder {
+    color: #cccccc;
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .submit-btn {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #0D6EFD;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+  }
+  
+  @media (max-width: 768px) {
+    .photo-upload {
+      text-align: center;
+    }
+  
+    .submit-btn {
+      width: 100%;
+    }
+  
+    .admin-info {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+.icon-button {
+  background-color: white;
+}
+  
