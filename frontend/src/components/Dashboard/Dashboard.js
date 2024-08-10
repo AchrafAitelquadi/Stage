@@ -7,6 +7,7 @@ import icons from '../importAllSvg';
 import { scaleSequential } from 'd3-scale';
 import { interpolateRainbow } from 'd3-scale-chromatic';
 import { TextField } from '@mui/material';
+import moment from 'moment';
 const getColor = (index, total) => {
     const colorScale = scaleSequential(interpolateRainbow).domain([0, total]);
     return colorScale(index);
@@ -59,7 +60,9 @@ const Dashboard = () => {
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
     };
-
+    
+    
+    
     return (
         <div className="background d-flex flex-column flex-md-row">
             <div className="flex-grow-1 p-3">
@@ -205,11 +208,18 @@ const Dashboard = () => {
                                     <div className="d-flex justify-content-center mb-3">
                                         <div className="legend-item">
                                             <span className="legend-color" style={{ backgroundColor: COLORS[0] }}></span>
-                                            F <span className="legend-value">1.245</span>
+                                            <div className="legend-text-container">
+                                                <div className="legend-text">F</div>
+                                                <div className="legend-value">1.245</div>
+                                            </div>
                                         </div>
                                         <div className="legend-item">
-                                            <span className="legend-color" style={{ backgroundColor: COLORS[1] }}></span>
-                                            M <span className="legend-value">1.356</span>
+                                            <div className="legend-label">
+                                                <span className="legend-color" style={{ backgroundColor: COLORS[1] }}></span>
+                                                <span className="legend-text">M</span>
+                                            </div> 
+                                                <div className="legend-value">1.356</div>
+                                            
                                         </div>
                                     </div>
                                     <ResponsiveContainer width="100%" height={200}>

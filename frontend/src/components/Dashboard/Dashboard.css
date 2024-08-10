@@ -2,7 +2,6 @@
   display: flex;
     height: 100vh; /* Full height */
     overflow: hidden;
-    background-color: red;
 }
 
 
@@ -187,4 +186,38 @@
 
 .radius {
   border-radius: 20px !important;
+}
+
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 0 1rem;
+  flex-direction: column; /* Stack the label and value vertically */
+  text-align: center;
+}
+
+.legend-label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.3rem; /* Space between the label and the value */
+}
+
+.legend-color {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.3rem; /* Space between the circle and the text */
+  border-radius: 50%;
+}
+
+.legend-text {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #303972;
+}
+
+.legend-value {
+  font-size: 0.9rem;
+  color: #4C4541;
 }

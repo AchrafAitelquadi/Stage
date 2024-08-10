@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
+import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
 import 'moment/locale/fr';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import TimePicker from 'react-time-picker';
 import 'react-time-picker/dist/TimePicker.css';
+import './Calendrier.css';
 
 // Set moment locale to French
 moment.locale('fr');
@@ -13,7 +14,10 @@ moment.locale('fr');
 const localizer = momentLocalizer(moment);
 
 const App = () => {
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(() => {
+    const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
+    return savedEvents;
+  });
   const [showModal, setShowModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [eventTitle, setEventTitle] = useState('');
@@ -25,13 +29,7 @@ const App = () => {
   const [timeRangeError, setTimeRangeError] = useState(false);
 
   useEffect(() => {
-    // Load events from localStorage
-    const savedEvents = JSON.parse(localStorage.getItem('events')) || [];
-    setEvents(savedEvents);
-  }, []);
-
-  useEffect(() => {
-    // Save events to localStorage
+    // Save events to localStorage whenever the events state changes
     localStorage.setItem('events', JSON.stringify(events));
   }, [events]);
 
@@ -56,16 +54,19 @@ const App = () => {
 
     if (!eventTitle.trim()) {
       setTitleError(true);
+      return;
     }
 
     if (!startTime || !endTime) {
       setTimeError(true);
+      return;
     }
 
     const start = moment(selectedDate).set({
       hour: moment(startTime, 'HH:mm').hour(),
       minute: moment(startTime, 'HH:mm').minute(),
     }).toDate();
+    
     const end = moment(selectedDate).set({
       hour: moment(endTime, 'HH:mm').hour(),
       minute: moment(endTime, 'HH:mm').minute(),
@@ -73,6 +74,7 @@ const App = () => {
 
     if (start >= end) {
       setTimeRangeError(true);
+      return;
     }
 
     if (eventTitle.trim() && startTime && endTime && start < end) {
@@ -87,7 +89,7 @@ const App = () => {
           title: eventTitle,
           start,
           end,
-          color: generateRandomColor(), // Generate random color for new events
+          color: generateRandomColor(),
         };
         setEvents([...events, newEvent]);
       }
@@ -111,7 +113,13 @@ const App = () => {
     }
   };
 
-  // Function to generate random colors
+  const clearAllEvents = () => {
+    if (window.confirm('Are you sure you want to clear all events?')) {
+      setEvents([]); // Clear events from state
+      localStorage.removeItem('events'); // Clear events from localStorage
+    }
+  };
+
   const generateRandomColor = () => {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -121,8 +129,21 @@ const App = () => {
     return color;
   };
 
+  const eventPropGetter = (event) => {
+    const backgroundColor = event.color || '#3174ad';
+    return { style: { backgroundColor } };
+  };
+
   return (
     <div style={{ height: '100vh' }}>
+      <button 
+        className="btn btn-danger" 
+        onClick={clearAllEvents} 
+        style={{ margin: '20px' }}
+      >
+        Clear All Events
+      </button>
+
       <Calendar
         localizer={localizer}
         events={events}
@@ -133,9 +154,10 @@ const App = () => {
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectedEvent}
         views={['month', 'week', 'day', 'agenda']}
+        eventPropGetter={eventPropGetter}
         components={{
           event: ({ event }) => (
-            <span style={{ backgroundColor: event.color }}>{event.title}</span>
+            <span style={{ color: '#fff' }}>{event.title}</span>
           ),
         }}
         messages={{
@@ -156,6 +178,7 @@ const App = () => {
           noEventsInRange: 'Aucun événement dans cette période',
           showMore: (total) => `+ ${total} plus`,
         }}
+        length={365}
       />
 
       {showModal && (
@@ -163,7 +186,7 @@ const App = () => {
           className="modal"
           style={{
             display: 'block',
-            backgroundColor: 'rgba(0,0,0,0.5)', // This is the black overlay
+            backgroundColor: 'rgba(0,0,0,0.5)',
             position: 'fixed',
             top: 0,
             bottom: 0,
