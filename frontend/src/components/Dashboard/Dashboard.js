@@ -206,21 +206,20 @@ const Dashboard = () => {
                                 <div className="card-body">
                                     <h3 className="chart-title">Candidats</h3>
                                     <div className="d-flex justify-content-center mb-3">
-                                        <div className="legend-item">
+                                    <div className="legend-item">
+                                        <div className="legend-label">
                                             <span className="legend-color" style={{ backgroundColor: COLORS[0] }}></span>
-                                            <div className="legend-text-container">
-                                                <div className="legend-text">F</div>
-                                                <div className="legend-value">1.245</div>
-                                            </div>
+                                            <span className="legend-text">F</span>
                                         </div>
-                                        <div className="legend-item">
-                                            <div className="legend-label">
-                                                <span className="legend-color" style={{ backgroundColor: COLORS[1] }}></span>
-                                                <span className="legend-text">M</span>
-                                            </div> 
-                                                <div className="legend-value">1.356</div>
-                                            
+                                        <div className="legend-value colorF">1.245</div>
+                                    </div>
+                                    <div className="legend-item">
+                                        <div className="legend-label">
+                                            <span className="legend-color" style={{ backgroundColor: COLORS[1] }}></span>
+                                            <span className="legend-text">M</span>
                                         </div>
+                                        <div className="legend-value colorM">1.356</div>
+                                    </div>
                                     </div>
                                     <ResponsiveContainer width="100%" height={200}>
                                         <PieChart>

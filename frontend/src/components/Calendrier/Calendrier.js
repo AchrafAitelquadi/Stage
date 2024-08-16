@@ -27,7 +27,6 @@ const App = () => {
   const [titleError, setTitleError] = useState(false);
   const [timeError, setTimeError] = useState(false);
   const [timeRangeError, setTimeRangeError] = useState(false);
-
   useEffect(() => {
     // Save events to localStorage whenever the events state changes
     localStorage.setItem('events', JSON.stringify(events));
@@ -154,6 +153,7 @@ const App = () => {
         onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectedEvent}
         views={['month', 'week', 'day', 'agenda']}
+        defaultView={Views.MONTH}
         eventPropGetter={eventPropGetter}
         components={{
           event: ({ event }) => (
@@ -178,7 +178,6 @@ const App = () => {
           noEventsInRange: 'Aucun événement dans cette période',
           showMore: (total) => `+ ${total} plus`,
         }}
-        length={365}
       />
 
       {showModal && (
