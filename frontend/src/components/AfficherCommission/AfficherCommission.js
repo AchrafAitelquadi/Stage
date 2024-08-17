@@ -70,7 +70,7 @@ const AfficherCommission = () => {
               <div className="col-12 col-sm-6 col-md-6 col-lg-6 mb-4" key={index}>
                 <div className="card member-card">
                   <div className="card-body text-center">
-                    <div className="member-avatar mx-auto mb-3"></div>
+                    <div className={`member-avatar mx-auto mb-3 ${index === 0 ? 'chef' : ''}`}></div>
                     <h5 className="card-title">{member.name}</h5>
                     <p className="card-text">{member.specialite}</p>
                     <div>

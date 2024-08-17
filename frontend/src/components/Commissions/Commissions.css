@@ -177,6 +177,12 @@
     color: #303972;
   }
   
+  .chef-star {
+    color: orange;
+    font-size: 1.2em;
+    margin-left: 10px;
+  }
+  
   .avatar {
     width: 30px;
     height: 30px;
