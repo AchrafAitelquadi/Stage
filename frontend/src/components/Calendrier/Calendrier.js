@@ -98,6 +98,28 @@ const App = () => {
       setStartTime('00:00');
       setEndTime('01:00');
     }
+    if (eventTitle.trim() && startTime && endTime && start < end) {
+      const newEvent = {
+        title: eventTitle,
+        start,
+        end,
+        color: generateRandomColor(),
+      };
+      setEvents([...events, newEvent]);
+  
+      // Save the event to localStorage
+      localStorage.setItem('latestEvent', JSON.stringify(newEvent));
+  
+      const event = new CustomEvent('eventUpdated', { detail: newEvent });
+      window.dispatchEvent(event);
+
+      setShowModal(false);
+      setEventTitle('');
+      setSelectEvent(null);
+      setStartTime('00:00');
+      setEndTime('01:00');
+    }
+  
   };
 
   const deleteEvents = () => {

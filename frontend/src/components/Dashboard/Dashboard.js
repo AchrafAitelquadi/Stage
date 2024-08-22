@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Dashboard.css';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar, PieChart, Pie, Cell } from 'recharts';
-import { Calendar, Input } from 'antd';
+import { Calendar, Badge } from 'antd';
 import { FileDoneOutlined } from '@ant-design/icons';
 import icons from '../importAllSvg';
 import { scaleSequential } from 'd3-scale';
@@ -55,32 +55,36 @@ const pieChartData = [
 ];
 
 const Dashboard = () => {
-    const [searchTerm, setSearchTerm] = useState("");
+    const [events, setEvents] = useState([]);
 
-    const handleSearch = (e) => {
-        setSearchTerm(e.target.value);
+    useEffect(() => {
+        const storedEvents = localStorage.getItem('events');
+        if (storedEvents) {
+            setEvents(JSON.parse(storedEvents));
+        }
+    }, []);
+    
+    const dateCellRender = (value) => {
+        const currentDate = value.format('YYYY-MM-DD');
+        const dayEvents = events.filter(event => moment(event.start).format('YYYY-MM-DD') === currentDate);
+    
+        return (
+            <div className="event-day">
+                {dayEvents.map((event, index) => (
+                    <div key={index} className="event-indicator" style={{ backgroundColor: event.color }}></div>
+                ))}
+            </div>
+        );
     };
-    
-    
-    
+
     return (
+        
         <div className="background d-flex flex-column flex-md-row">
             <div className="flex-grow-1 p-3">
                 <div className="dashboard">
                     <div className="row align-items-center mb-4">
                         <div className="col-md-6">
                             <h2 className="dashboard-title">Dashboard</h2>
-                        </div>
-                        <div className="col-md-6 text-right">
-                            <TextField
-                            placeholder="Search here..."
-                            variant="outlined"
-                            size="small"
-                            className="search-bar"
-                            InputProps={{
-                                startAdornment: <img src={icons.search} alt="Search Icon" className="search-icon" />
-                            }}
-                            />
                         </div>
                     </div>
                     <div className="row stats-cards mb-3 align-items-center">
@@ -155,7 +159,7 @@ const Dashboard = () => {
                             <div className="card h-100 calendrier-card">
                                 <div className="card-body">
                                     <h3 className="chart-title">Calendrier Recrutement</h3>
-                                    <Calendar fullscreen={false} />
+                                    <Calendar fullscreen={false} dateCellRender={dateCellRender} />
                                 </div>
                             </div>
                         </div>

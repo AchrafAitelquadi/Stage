@@ -228,3 +228,15 @@
 .colorM{
   color: #FF865C;
 }
+
+.event-day {
+  display: flex;
+  justify-content: center;
+  gap: 4px; /* Adjust the space between dots */
+}
+
+.event-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}

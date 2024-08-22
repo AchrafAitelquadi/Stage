@@ -16,6 +16,7 @@ import AjouterCommission from './components/AjouterCommission/AjouterCommission'
 import Calendrier from './components/Calendrier/Calendrier';
 import CandidateList from './components/Candidatures/Candidatures';
 import AfficherCommission from './components/AfficherCommission/AfficherCommission';
+
 function App() {
     useDisableZoom();
     const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth > 1300);
@@ -40,30 +41,30 @@ function App() {
     };
 
     return (
-        <Router>
-            <div className="app d-flex">
-                <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-                <div className={`content flex-grow-1 ${isSidebarOpen ? 'shifted' : ''}`}>
-                    {windowWidth <= 1300 && (
-                        <button className="btn btn-primary mt-3 ml-3" onClick={toggleSidebar}>
-                            <MenuIcon />
-                        </button>
-                    )}
-                    <Routes>
-                        <Route path="/" element={<Navigate to="/dashboard" />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/agents" element={<Agents />} />
-                        <Route path="/agents/ajouteragent" element={<AddAgent />} />
-                        <Route path="/services" element={<Services />} />
-                        <Route path="/commissions" element={<Commissions />} />
-                        <Route path="/commissions/ajoutercommission" element={<AjouterCommission/>} />
-                        <Route path="/calendrier" element={<Calendrier />} />
-                        <Route path="/candidatures" element={<CandidateList/>} />
-                        <Route path="/affichercommission/:name" element={<AfficherCommission />} />
-                    </Routes>
+            <Router>
+                <div className="app d-flex">
+                    <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+                    <div className={`content flex-grow-1 ${isSidebarOpen ? 'shifted' : ''}`}>
+                        {windowWidth <= 1300 && (
+                            <button className="btn btn-primary mt-3 ml-3" onClick={toggleSidebar}>
+                                <MenuIcon />
+                            </button>
+                        )}
+                        <Routes>
+                            <Route path="/" element={<Navigate to="/dashboard" />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/agents" element={<Agents />} />
+                            <Route path="/agents/ajouteragent" element={<AddAgent />} />
+                            <Route path="/services" element={<Services />} />
+                            <Route path="/commissions" element={<Commissions />} />
+                            <Route path="/commissions/ajoutercommission" element={<AjouterCommission/>} />
+                            <Route path="/calendrier" element={<Calendrier />} />
+                            <Route path="/candidatures" element={<CandidateList/>} />
+                            <Route path="/affichercommission/:name" element={<AfficherCommission />} />
+                        </Routes>
+                    </div>
                 </div>
-            </div>
-        </Router>
+            </Router>
     );
 }
 
