@@ -28,22 +28,52 @@ const App = () => {
   const [titleError, setTitleError] = useState(false);
   const [timeError, setTimeError] = useState(false);
   const [timeRangeError, setTimeRangeError] = useState(false);
+  const [eventLocation, setEventLocation] = useState('');
+  const [filteredEvents, setFilteredEvents] = useState([]);
+
+  useEffect(() => {
+    const startOfMonth = moment().startOf('month').startOf('day').toDate();
+    const endOfMonth = moment().endOf('month').endOf('day').toDate();
+  
+    const eventsThisMonth = events.filter(event => {
+      const eventStart = moment(event.start).toDate();
+      const eventEnd = moment(event.end).toDate();
+  
+      return (
+        (eventStart >= startOfMonth && eventStart <= endOfMonth) ||
+        (eventEnd >= startOfMonth && eventEnd <= endOfMonth) ||
+        (eventStart < startOfMonth && eventEnd > endOfMonth)
+      );
+    });
+  
+    setFilteredEvents(eventsThisMonth);
+  }, [events]);
+  
+  
+  
+  
 
   useEffect(() => {
     // Save events to localStorage whenever the events state changes
     localStorage.setItem('events', JSON.stringify(events));
   }, [events]);
-
+  
+  
   const handleSelectSlot = (slotInfo) => {
     setShowModal(true);
     setSelectedDate(slotInfo.start);
+    setEventTitle('');
+    setEventLocation(''); // Reset location for new event
     setSelectEvent(null);
+    setStartTime('00:00');
+    setEndTime('01:00');
   };
 
   const handleSelectedEvent = (event) => {
     setShowModal(true);
     setSelectEvent(event);
     setEventTitle(event.title);
+    setEventLocation(event.location || '');
     setStartTime(moment(event.start).format('HH:mm'));
     setEndTime(moment(event.end).format('HH:mm'));
   };
@@ -52,39 +82,51 @@ const App = () => {
     setTitleError(false);
     setTimeError(false);
     setTimeRangeError(false);
-
+  
     if (!eventTitle.trim()) {
       setTitleError(true);
       return;
     }
-
+  
     if (!startTime || !endTime) {
       setTimeError(true);
       return;
     }
-
+  
     const start = moment(selectedDate)
       .set({
         hour: moment(startTime, 'HH:mm').hour(),
         minute: moment(startTime, 'HH:mm').minute(),
       })
       .toDate();
-
+  
     const end = moment(selectedDate)
       .set({
         hour: moment(endTime, 'HH:mm').hour(),
         minute: moment(endTime, 'HH:mm').minute(),
       })
       .toDate();
-
+  
     if (start >= end) {
       setTimeRangeError(true);
       return;
     }
-
+  
+    // Check if an event with the same title exists
+    const existingEvent = events.find(event => event.title === eventTitle);
+  
+    let eventColor;
+    if (existingEvent) {
+      // Use the color of the existing event
+      eventColor = existingEvent.color;
+    } else {
+      // Generate a new color if it's a new title
+      eventColor = generateRandomColor();
+    }
+  
     if (eventTitle.trim() && startTime && endTime && start < end) {
       if (selectEvent) {
-        const updatedEvent = { ...selectEvent, title: eventTitle, start, end };
+        const updatedEvent = { ...selectEvent, title: eventTitle, start, end, location: eventLocation, color: eventColor };
         const updatedEvents = events.map((event) =>
           event === selectEvent ? updatedEvent : event
         );
@@ -94,17 +136,21 @@ const App = () => {
           title: eventTitle,
           start,
           end,
-          color: generateRandomColor(),
+          location: eventLocation,
+          color: eventColor,
         };
         setEvents([...events, newEvent]);
       }
       setShowModal(false);
       setEventTitle('');
+      setEventLocation('');
       setSelectEvent(null);
       setStartTime('00:00');
       setEndTime('01:00');
     }
   };
+  
+  
 
   const deleteEvents = () => {
     if (selectEvent) {
@@ -157,7 +203,7 @@ const App = () => {
     <div style={{ height: '100vh' }}>
       <Calendar
         localizer={localizer}
-        events={events}
+        events={filteredEvents}
         startAccessor="start"
         endAccessor="end"
         style={{ margin: '50px' }}
@@ -251,6 +297,21 @@ const App = () => {
                     </div>
                   )}
                 </div>
+
+                <div className="mb-3">
+                  <label htmlFor="eventLocation" className="form-label">
+                    Lieu de l'événement (optionnel):
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="eventLocation"
+                    value={eventLocation}
+                    autoComplete="off"
+                    onChange={(e) => setEventLocation(e.target.value)}
+                  />
+                </div>
+
                 <div className="mb-3">
                   <label htmlFor="startTime" className="form-label">
                     Heure de début:

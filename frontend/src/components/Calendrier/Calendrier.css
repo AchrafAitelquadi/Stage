@@ -13,10 +13,25 @@
 }
 .clear-btn {
   display: block;
-  margin: 20px auto; /* Centers the button horizontally */
+  margin: 20px auto;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #d9534f;
+  border: none;
+  border-radius: 20px;
   cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.clear-btn:hover {
+  background-color: #c9302c;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.clear-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(217, 83, 79, 0.5);
 }
 .calendrier-container {
   padding: 20px;
