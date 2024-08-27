@@ -6,7 +6,8 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import TimePicker from 'react-time-picker';
 import 'react-time-picker/dist/TimePicker.css';
 import './Calendrier.css';
-
+import icons from '../importAllSvg';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Checkbox, IconButton, Button, TextField } from '@mui/material';
 // Set moment locale to French
 moment.locale('fr');
 
@@ -27,6 +28,7 @@ const App = () => {
   const [titleError, setTitleError] = useState(false);
   const [timeError, setTimeError] = useState(false);
   const [timeRangeError, setTimeRangeError] = useState(false);
+
   useEffect(() => {
     // Save events to localStorage whenever the events state changes
     localStorage.setItem('events', JSON.stringify(events));
@@ -61,15 +63,19 @@ const App = () => {
       return;
     }
 
-    const start = moment(selectedDate).set({
-      hour: moment(startTime, 'HH:mm').hour(),
-      minute: moment(startTime, 'HH:mm').minute(),
-    }).toDate();
-    
-    const end = moment(selectedDate).set({
-      hour: moment(endTime, 'HH:mm').hour(),
-      minute: moment(endTime, 'HH:mm').minute(),
-    }).toDate();
+    const start = moment(selectedDate)
+      .set({
+        hour: moment(startTime, 'HH:mm').hour(),
+        minute: moment(startTime, 'HH:mm').minute(),
+      })
+      .toDate();
+
+    const end = moment(selectedDate)
+      .set({
+        hour: moment(endTime, 'HH:mm').hour(),
+        minute: moment(endTime, 'HH:mm').minute(),
+      })
+      .toDate();
 
     if (start >= end) {
       setTimeRangeError(true);
@@ -98,28 +104,6 @@ const App = () => {
       setStartTime('00:00');
       setEndTime('01:00');
     }
-    if (eventTitle.trim() && startTime && endTime && start < end) {
-      const newEvent = {
-        title: eventTitle,
-        start,
-        end,
-        color: generateRandomColor(),
-      };
-      setEvents([...events, newEvent]);
-  
-      // Save the event to localStorage
-      localStorage.setItem('latestEvent', JSON.stringify(newEvent));
-  
-      const event = new CustomEvent('eventUpdated', { detail: newEvent });
-      window.dispatchEvent(event);
-
-      setShowModal(false);
-      setEventTitle('');
-      setSelectEvent(null);
-      setStartTime('00:00');
-      setEndTime('01:00');
-    }
-  
   };
 
   const deleteEvents = () => {
@@ -156,15 +140,21 @@ const App = () => {
   };
 
   return (
+    <div className="calendrier-container">
+      <div className="top-bar">
+        <h2>Calendrier</h2>
+        <div className="admin-info">
+          <IconButton className="icon-button">
+            <img src={icons.parameter} alt="Settings" />
+          </IconButton>
+          <div className="admin-details">
+            <span className="admin-name">Prénom Admin</span>
+            <span className="admin-role">Admin</span>
+          </div>
+          <img src={icons.services} alt="Avatar" className="admin-avatar" />
+        </div>
+      </div>
     <div style={{ height: '100vh' }}>
-      <button 
-        className="btn btn-danger" 
-        onClick={clearAllEvents} 
-        style={{ margin: '20px' }}
-      >
-        Clear All Events
-      </button>
-
       <Calendar
         localizer={localizer}
         events={events}
@@ -201,6 +191,13 @@ const App = () => {
           showMore: (total) => `+ ${total} plus`,
         }}
       />
+
+      <button 
+        className="btn btn-danger clear-btn"
+        onClick={clearAllEvents}
+      >
+        Clear All Events
+      </button>
 
       {showModal && (
         <div
@@ -301,16 +298,31 @@ const App = () => {
                 )}
                 <button
                   type="button"
+                  className="btn btn-secondary"
+                  onClick={() => {
+                    setShowModal(false);
+                    setEventTitle('');
+                    setSelectEvent(null);
+                    setTitleError(false);
+                    setTimeError(false);
+                    setTimeRangeError(false);
+                  }}
+                >
+                  Annuler
+                </button>
+                <button
+                  type="button"
                   className="btn btn-primary"
                   onClick={saveEvent}
                 >
-                  Sauvegarder
+                  {selectEvent ? 'Enregistrer les modifications' : 'Enregistrer l\'événement'}
                 </button>
               </div>
             </div>
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };
