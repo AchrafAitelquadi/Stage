@@ -14,8 +14,16 @@ const agents = [
   { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
   { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
   { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
-  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' }
-  // ... (other entries)
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
+  { jobTitle: 'Accountant', candidates: '102', shortlisted: '-', startDate: '8/17/2022' },
 ];
 
 const CandidateList = () => {
@@ -38,6 +46,53 @@ const CandidateList = () => {
 
   const totalPages = Math.ceil(filteredCandidates.length / itemsPerPage);
   const paginatedCandidates = filteredCandidates.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+  const renderPagination = () => {
+    const pagination = [];
+    const maxVisiblePages = 5;
+    
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    if (startPage > 1) {
+      pagination.push(
+        <span key="start" onClick={() => handlePageChange(1)}>
+          1
+        </span>
+      );
+      if (startPage > 2) {
+        pagination.push(<span key="start-ellipsis">...</span>);
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pagination.push(
+        <span
+          key={i}
+          className={currentPage === i ? 'active' : ''}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </span>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pagination.push(<span key="end-ellipsis">...</span>);
+      }
+      pagination.push(
+        <span key="end" onClick={() => handlePageChange(totalPages)}>
+          {totalPages}
+        </span>
+      );
+    }
+
+    return pagination;
+  };
 
   return (
     <div className="candidate-container">
@@ -93,21 +148,16 @@ const CandidateList = () => {
         <span
           className="arrow"
           onClick={() => handlePageChange(currentPage - 1)}
-          style={{ visibility: currentPage === 1 ? 'hidden' : 'visible' }}>
+          style={{ visibility: currentPage === 1 ? 'hidden' : 'visible' }}
+        >
           {'<'}
         </span>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <span
-            key={i}
-            className={currentPage === i + 1 ? 'active' : ''}
-            onClick={() => handlePageChange(i + 1)}>
-            {i + 1}
-          </span>
-        ))}
+        {renderPagination()}
         <span
           className="arrow"
           onClick={() => handlePageChange(currentPage + 1)}
-          style={{ visibility: currentPage === totalPages ? 'hidden' : 'visible' }}>
+          style={{ visibility: currentPage === totalPages ? 'hidden' : 'visible' }}
+        >
           {'>'}
         </span>
       </div>

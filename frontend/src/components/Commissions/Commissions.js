@@ -16,6 +16,7 @@ const commissions = [
 const Commissions = () => {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedServices, setSelectedServices] = useState(new Set());
   const itemsPerPage = 5;
   const navigate = useNavigate();
 
@@ -25,6 +26,18 @@ const Commissions = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleSelectChange = (index) => {
+    setSelectedServices((prev) => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(index)) {
+        newSelected.delete(index);
+      } else {
+        newSelected.add(index);
+      }
+      return newSelected;
+    });
   };
 
   const filteredCommissions = commissions.filter(commission =>
@@ -90,7 +103,8 @@ const Commissions = () => {
             {paginatedCommissions.map((commission, index) => (
               <TableRow key={index}>
                 <TableCell padding="checkbox">
-                  <Checkbox />
+                  <Checkbox checked={selectedServices.has(index + (currentPage - 1) * itemsPerPage)}
+                    onChange={() => handleSelectChange(index + (currentPage - 1) * itemsPerPage)}/>
                 </TableCell>
                 <TableCell className="nom-column-cell" sx={{ textAlign: 'left !important', cursor: 'pointer' }} onClick={() => navigate(`/affichercommission/${encodeURIComponent(commission.name)}`)}>{commission.name}</TableCell>
                 <TableCell className="agent-service">{commission.manager}</TableCell>

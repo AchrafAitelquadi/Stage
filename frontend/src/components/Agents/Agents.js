@@ -25,12 +25,38 @@ const agents = [
   { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
   { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
   { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Bruce Wayne', code: '#111111111', date: 'July 20, 2021', service: 'Alfred Wayne', post: 'Yogyakarta', grade: 'VII B' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },{ name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Bruce Wayne', code: '#111111111', date: 'July 20, 2021', service: 'Alfred Wayne', post: 'Yogyakarta', grade: 'VII B' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },{ name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Bruce Wayne', code: '#111111111', date: 'July 20, 2021', service: 'Alfred Wayne', post: 'Yogyakarta', grade: 'VII B' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
+  { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' },
   { name: 'Clark Kent', code: '#222222222', date: 'August 30, 2021', service: 'Martha Kent', post: 'Jakarta', grade: 'VII C' }
 ];
 
 const Agent = () => {
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedAgents, setSelectedAgents] = useState(new Set());
   const itemsPerPage = 7;
   const navigate = useNavigate();
 
@@ -40,6 +66,19 @@ const Agent = () => {
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+  };
+
+  const handleSelectChange = (index) => {
+    const uniqueKey = index + (currentPage - 1) * itemsPerPage;
+    setSelectedAgents(prev => {
+      const newSelected = new Set(prev);
+      if (newSelected.has(uniqueKey)) {
+        newSelected.delete(uniqueKey);
+      } else {
+        newSelected.add(uniqueKey);
+      }
+      return newSelected;
+    });
   };
 
   const filteredAgents = agents.filter(agent =>
@@ -52,7 +91,54 @@ const Agent = () => {
 
   const totalPages = Math.ceil(filteredAgents.length / itemsPerPage);
   const paginatedAgents = filteredAgents.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-  
+  const renderPagination = () => {
+    const pagination = [];
+    const maxVisiblePages = 5;
+    
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    if (endPage - startPage < maxVisiblePages - 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    if (startPage > 1) {
+      pagination.push(
+        <span key="start" onClick={() => handlePageChange(1)}>
+          1
+        </span>
+      );
+      if (startPage > 2) {
+        pagination.push(<span key="start-ellipsis">...</span>);
+      }
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pagination.push(
+        <span
+          key={i}
+          className={currentPage === i ? 'active' : ''}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </span>
+      );
+    }
+
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        pagination.push(<span key="end-ellipsis">...</span>);
+      }
+      pagination.push(
+        <span key="end" onClick={() => handlePageChange(totalPages)}>
+          {totalPages}
+        </span>
+      );
+    }
+
+    return pagination;
+  };
+
   return (
     <div className="agent-container">
       <div className="top-bar">
@@ -94,7 +180,7 @@ const Agent = () => {
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
-                <Checkbox />
+                <Checkbox  />
               </TableCell>
               <TableCell sx={{ textAlign: 'left !important' }}>Name</TableCell>
               <TableCell>Code</TableCell>
@@ -107,12 +193,17 @@ const Agent = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedAgents.map((agent, index) => (
-              <TableRow key={index}>
-                <TableCell padding="checkbox">
-                  <Checkbox />
-                </TableCell>
-                <TableCell>
+          {paginatedAgents.map((agent, index) => {
+              const uniqueKey = index + (currentPage - 1) * itemsPerPage;
+              return (
+                <TableRow key={uniqueKey}>
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selectedAgents.has(uniqueKey)}
+                      onChange={() => handleSelectChange(index)}
+                    />
+                  </TableCell>
+                  <TableCell>
                   <div className="agent-name">
                     <div className="avatar"></div>
                     {agent.name}
@@ -135,7 +226,7 @@ const Agent = () => {
                   <IconButton><img src={icons.more} alt="more" /></IconButton>
                 </TableCell>
               </TableRow>
-            ))}
+            )})}
           </TableBody>
         </Table>
       </TableContainer>
@@ -143,21 +234,16 @@ const Agent = () => {
         <span
           className="arrow"
           onClick={() => handlePageChange(currentPage - 1)}
-          style={{ visibility: currentPage === 1 ? 'hidden' : 'visible' }}>
+          style={{ visibility: currentPage === 1 ? 'hidden' : 'visible' }}
+        >
           {'<'}
         </span>
-        {Array.from({ length: totalPages }, (_, i) => (
-          <span
-            key={i}
-            className={currentPage === i + 1 ? 'active' : ''}
-            onClick={() => handlePageChange(i + 1)}>
-            {i + 1}
-          </span>
-        ))}
+        {renderPagination()}
         <span
           className="arrow"
           onClick={() => handlePageChange(currentPage + 1)}
-          style={{ visibility: currentPage === totalPages ? 'hidden' : 'visible' }}>
+          style={{ visibility: currentPage === totalPages ? 'hidden' : 'visible' }}
+        >
           {'>'}
         </span>
       </div>
