@@ -77,9 +77,6 @@ const Commissions = () => {
           />
         </div>
         <div className="filter-and-add">
-          <Button variant="outlined" className="filter-btn">
-            Filtrer par <span className="arrow-down">▼</span>
-          </Button>
           <Button variant="contained" className="add-agent-btn" onClick={() => navigate('/commissions/ajoutercommission')}>
             <span>+</span> Ajouter Commission
           </Button>

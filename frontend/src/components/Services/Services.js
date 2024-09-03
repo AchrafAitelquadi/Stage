@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './Services.css';  // We're using the same CSS file as Agents
 import { useNavigate } from 'react-router-dom';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Checkbox, IconButton, Button, TextField, Pagination } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Checkbox, IconButton, Button, TextField, MenuItem,Menu } from '@mui/material';
 import icons from '../importAllSvg';
 
-const services = [
+const initialServices = [
   { name: 'Service Programmation Planification', manager: 'Mana William', agents: 100 },
   { name: 'Service Production', manager: 'James Soap', agents: 219 },
   { name: 'Service Production', manager: 'Justin Hope', agents: 80 },
@@ -63,13 +63,16 @@ const services = [
 ];
 
 const Services = () => {
+  const [services, setServices] = useState(initialServices);
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedServices, setSelectedServices] = useState(new Set());
+  const [selectAll, setSelectAll] = useState(false);
+  const [contextMenuAnchor, setContextMenuAnchor] = useState(null);
+  const [selectedServiceIndex, setSelectedServiceIndex] = useState(null);
   const itemsPerPage = 5;
   const navigate = useNavigate();
 
-  
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
   };
@@ -79,17 +82,49 @@ const Services = () => {
   };
 
   const handleSelectChange = (index) => {
-    setSelectedServices((prev) => {
+    const uniqueKey = index + (currentPage - 1) * itemsPerPage;
+    setSelectedServices(prev => {
       const newSelected = new Set(prev);
-      if (newSelected.has(index)) {
-        newSelected.delete(index);
+      if (newSelected.has(uniqueKey)) {
+        newSelected.delete(uniqueKey);
       } else {
-        newSelected.add(index);
+        newSelected.add(uniqueKey);
       }
       return newSelected;
     });
   };
-  
+
+  const handleSelectAllChange = (event) => {
+    const isChecked = event.target.checked;
+    setSelectAll(isChecked);
+
+    if (isChecked) {
+      const allKeys = new Set(services.map((_, index) => index));
+      setSelectedServices(allKeys);
+    } else {
+      setSelectedServices(new Set());
+    }
+  };
+
+  const handleContextMenuClick = (event, index) => {
+    event.preventDefault();
+    setSelectedServiceIndex(index);
+    setContextMenuAnchor(event.currentTarget);
+  };
+
+  const handleContextMenuClose = () => {
+    setContextMenuAnchor(null);
+  };
+
+  const handleDelete = () => {
+    if (selectedServiceIndex !== null) {
+      const updatedServices = services.filter((_, index) => index !== selectedServiceIndex);
+      setServices(updatedServices);
+      setContextMenuAnchor(null);
+      setSelectedServiceIndex(null);
+    }
+  };
+
   const filteredServices = services.filter(service =>
     service.name.toLowerCase().includes(search.toLowerCase()) ||
     service.manager.toLowerCase().includes(search.toLowerCase()) ||
@@ -98,53 +133,55 @@ const Services = () => {
 
   const totalPages = Math.ceil(filteredServices.length / itemsPerPage);
   const paginatedServices = filteredServices.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
   const renderPagination = () => {
     const pagination = [];
-    const maxVisiblePages = 5;
-    
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+      const maxVisiblePages = 5;
+      
+      let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+      let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
 
-    if (endPage - startPage < maxVisiblePages - 1) {
-      startPage = Math.max(1, endPage - maxVisiblePages + 1);
-    }
-
-    if (startPage > 1) {
-      pagination.push(
-        <span key="start" onClick={() => handlePageChange(1)}>
-          1
-        </span>
-      );
-      if (startPage > 2) {
-        pagination.push(<span key="start-ellipsis">...</span>);
+      if (endPage - startPage < maxVisiblePages - 1) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
       }
-    }
 
-    for (let i = startPage; i <= endPage; i++) {
-      pagination.push(
-        <span
-          key={i}
-          className={currentPage === i ? 'active' : ''}
-          onClick={() => handlePageChange(i)}
-        >
-          {i}
-        </span>
-      );
-    }
-
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        pagination.push(<span key="end-ellipsis">...</span>);
+      if (startPage > 1) {
+        pagination.push(
+          <span key="start" onClick={() => handlePageChange(1)}>
+            1
+          </span>
+        );
+        if (startPage > 2) {
+          pagination.push(<span key="start-ellipsis">...</span>);
+        }
       }
-      pagination.push(
-        <span key="end" onClick={() => handlePageChange(totalPages)}>
-          {totalPages}
-        </span>
-      );
-    }
 
-    return pagination;
+      for (let i = startPage; i <= endPage; i++) {
+        pagination.push(
+          <span
+            key={i}
+            className={currentPage === i ? 'active' : ''}
+            onClick={() => handlePageChange(i)}
+          >
+            {i}
+          </span>
+        );
+      }
+
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+          pagination.push(<span key="end-ellipsis">...</span>);
+        }
+        pagination.push(
+          <span key="end" onClick={() => handlePageChange(totalPages)}>
+            {totalPages}
+          </span>
+        );
+      }
+
+      return pagination;
   };
+
   return (
     <div className="agent-container">
       <div className="top-bar">
@@ -173,9 +210,6 @@ const Services = () => {
           />
         </div>
         <div className="filter-and-add">
-          <Button variant="outlined" className="filter-btn">
-            Filtrer par <span className="arrow-down">▼</span>
-          </Button>
           <Button variant="contained" className="add-agent-btn" onClick={() => navigate('/services/ajouterservice')}>
             <span>+</span> Ajouter Service
           </Button>
@@ -186,7 +220,11 @@ const Services = () => {
           <TableHead>
             <TableRow>
               <TableCell padding="checkbox">
-                <Checkbox />
+                <Checkbox
+                  checked={selectAll}
+                  indeterminate={selectedServices.size > 0 && selectedServices.size < services.length}
+                  onChange={handleSelectAllChange}
+                />
               </TableCell>
               <TableCell className="nom-column" sx={{ textAlign: 'left !important' }}>Nom</TableCell>
               <TableCell className="service-column">Chef de Service</TableCell>
@@ -196,26 +234,34 @@ const Services = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-          {paginatedServices.map((service, index) => (
-              <TableRow key={index}>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    checked={selectedServices.has(index + (currentPage - 1) * itemsPerPage)}
-                    onChange={() => handleSelectChange(index + (currentPage - 1) * itemsPerPage)}
-                  />
-                </TableCell>
-                <TableCell className="nom-column" sx={{ textAlign: 'left !important' }}>{service.name}</TableCell>
-                <TableCell className="agent-service service-column">{service.manager}</TableCell>
-                <TableCell className="agent-post agents-column">{service.agents}</TableCell>
-                <TableCell>
-                  <IconButton><img src={icons.phone} alt="Phone" /></IconButton>
-                  <IconButton><img src={icons.email} alt="email" /></IconButton>
-                </TableCell>
-                <TableCell>
-                  <IconButton><img src={icons.more} alt="more" /></IconButton>
-                </TableCell>
-              </TableRow>
-            ))}
+            {paginatedServices.map((service, index) => {
+              const uniqueKey = index + (currentPage - 1) * itemsPerPage;
+              return (
+                <TableRow 
+                  key={uniqueKey}
+                  onContextMenu={(event) => handleContextMenuClick(event, uniqueKey)}
+                >
+                  <TableCell padding="checkbox">
+                    <Checkbox
+                      checked={selectedServices.has(uniqueKey)}
+                      onChange={() => handleSelectChange(index)}
+                    />
+                  </TableCell>
+                  <TableCell className="nom-column" sx={{ textAlign: 'left !important' }}>{service.name}</TableCell>
+                  <TableCell className="agent-service service-column">{service.manager}</TableCell>
+                  <TableCell className="agent-post agents-column">{service.agents}</TableCell>
+                  <TableCell>
+                    <IconButton><img src={icons.phone} alt="Phone" /></IconButton>
+                    <IconButton><img src={icons.email} alt="email" /></IconButton>
+                  </TableCell>
+                  <TableCell>
+                    <IconButton className="action-btn" onClick={(event) => handleContextMenuClick(event, uniqueKey)}>
+                      <img src={icons.more} alt="more" />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -236,6 +282,13 @@ const Services = () => {
           {'>'}
         </span>
       </div>
+      <Menu
+        anchorEl={contextMenuAnchor}
+        open={Boolean(contextMenuAnchor)}
+        onClose={handleContextMenuClose}
+      >
+        <MenuItem onClick={handleDelete}>Supprimer</MenuItem>
+      </Menu>
     </div>
   );
 };
