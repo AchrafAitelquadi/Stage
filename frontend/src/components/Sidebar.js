@@ -1,5 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { CiViewList } from "react-icons/ci";
+import { FiBook } from "react-icons/fi";
+import { GoCommentDiscussion } from "react-icons/go";
+import { PiExam } from "react-icons/pi";
 import './Sidebar.css';
 import icons from './importAllSvg';
 
@@ -42,6 +46,12 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                         </NavLink>
                     </li>
                     <li>
+                        <NavLink to="/listes" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
+                            <CiViewList className="menu-icon" />
+                            Listes
+                        </NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/convocations" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                             <img src={icons.convocations} alt="Convocations Icon" className="menu-icon" />
                             Convocations
@@ -57,6 +67,18 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                         <NavLink to="/commissions" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
                             <img src={icons.chat} alt="Chat Icon" className="menu-icon" />
                             Commission
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/avisdetails" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
+                            <GoCommentDiscussion className="menu-icon" />
+                            Avis
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/epreuvedetails" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
+                            <PiExam className="menu-icon" /> {/* Updated Épreuve icon */}
+                            Épreuve
                         </NavLink>
                     </li>
                 </ul>
