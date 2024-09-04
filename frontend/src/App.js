@@ -16,6 +16,15 @@ import AjouterCommission from './components/AjouterCommission/AjouterCommission'
 import Calendrier from './components/Calendrier/Calendrier';
 import CandidateList from './components/Candidatures/Candidatures';
 import AfficherCommission from './components/AfficherCommission/AfficherCommission';
+import Convocation from './components/Convocation/Convocation'; 
+import Besoins from './components/Besoins/Besoins';
+import Listes from './components/Listes/Listes'; 
+import ListesDetails from './components/ListesDetails/ListesDetails';
+import Avis from './components/Avis/Avis';  
+import AvisDetails from './components/AvisDetails/AvisDetails';  
+import Epreuve from './components/Epreuve/Epreuve';  
+import EpreuveDetails from './components/EpreuveDetails/EpreuveDetails'; 
+import Profile from './components/Profile/Profile';
 
 function App() {
     useDisableZoom();
@@ -61,6 +70,15 @@ function App() {
                             <Route path="/calendrier" element={<Calendrier />} />
                             <Route path="/candidatures" element={<CandidateList/>} />
                             <Route path="/affichercommission/:name" element={<AfficherCommission />} />
+                            <Route path="/convocations" element={<Convocation />} /> 
+                            <Route path="/besoins" element={<Besoins />} />
+                            <Route path="/listes" element={<Listes />} />
+                            <Route path="/listesdetails/:id" element={<ListesDetails />} />
+                            <Route path="/avis" element={<Avis />} /> 
+                            <Route path="/avisdetails" element={<AvisDetails />} />  {/* Add AvisDetails route */}
+                            <Route path="/epreuve" element={<Epreuve />} />  {/* Add Epreuve route */}
+                            <Route path="/epreuvedetails" element={<EpreuveDetails />} />
+                            <Route path="/profile" element={<Profile />} />
                         </Routes>
                     </div>
                 </div>

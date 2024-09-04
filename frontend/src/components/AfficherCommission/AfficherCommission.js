@@ -53,7 +53,6 @@ const AfficherCommission = () => {
         </div>
         <div className="col-auto">
           <div className="d-flex align-items-center">
-            <button className="btn btn-link"><img src={icons.parameter} alt="Settings" /></button>
             <div className="ms-2">
               <div>Nabilin A.</div>
               <small className="text-muted">Admin</small>

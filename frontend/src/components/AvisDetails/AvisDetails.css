@@ -1,0 +1,210 @@
+/* AvisDetails.css */
+
+.avis-details-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.admin-info {
+    display: flex;
+    align-items: center;
+}
+
+.icon-button {
+    margin-right: 15px;
+}
+
+.admin-details {
+    text-align: right;
+}
+
+.admin-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+.table-container {
+    margin-top: 20px;
+}
+
+.avis-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.avis-table th,
+.avis-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.avis-table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+}
+/* Top Bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .top-bar h2 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 28px;
+    color: #4C4541;
+  }
+  
+  /* Admin Info */
+  .admin-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .admin-details {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+  }
+  
+  .admin-role {
+    font-size: 0.8em;
+    color: #999;
+  }
+  
+  .icon-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .icon-button img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .icon-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+  }
+  
+  .icon-button:hover::before {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .admin-name {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .admin-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+  }
+  
+  /* Search and Filter Section */
+  .search-and-filter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar {
+    flex-grow: 1;
+    margin-right: 20px;
+  }
+  
+  .search-bar .MuiOutlinedInput-root {
+    border-radius: 20px;
+  }
+  
+  .search-icon {
+    margin-right: 10px;
+  }
+  
+  .filter-and-add {
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-btn {
+    margin-right: 10px !important;
+    border-color: #1e5245 !important;
+    color: #1e5245 !important;
+    text-transform: none !important;
+    border-radius: 20px !important;
+  }
+  
+  .arrow-down {
+    font-size: 0.8em;
+    margin-left: 5px;
+  }
+  
+  .add-agent-btn {
+    background-color: #1e5245 !important;
+    border-radius: 20px !important;
+    text-transform: none !important;
+    padding: 6px 16px !important;
+  }
+  
+  .add-agent-btn span {
+    margin-right: 5px;
+  }
+  
+  /* Table */
+  .avis-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .avis-table th, .avis-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .avis-table th {
+    background-color: #f2f2f2;
+  }
+  

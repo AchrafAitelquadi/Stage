@@ -190,9 +190,6 @@ const App = () => {
       <div className="top-bar">
         <h2>Calendrier</h2>
         <div className="admin-info">
-          <IconButton className="icon-button">
-            <img src={icons.parameter} alt="Settings" />
-          </IconButton>
           <div className="admin-details">
             <span className="admin-name">Prénom Admin</span>
             <span className="admin-role">Admin</span>

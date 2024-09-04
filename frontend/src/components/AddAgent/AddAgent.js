@@ -186,7 +186,6 @@ const AddAgent = () => {
       <div className="header">
         <BsArrowLeft className="back-arrow" onClick={handleBack} />
         <div className="admin-info">
-          <IconButton className="icon-button"><img src={icons.parameter} alt="Settings" /></IconButton>
           <div className="admin-details">
             <span className="admin-name">Prénom Admin</span>
             <span className="admin-role">Admin</span>

@@ -1,0 +1,473 @@
+/* Container */
+.avis-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #F5F5F5 !important;
+  }
+  
+  /* Top Bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .top-bar h2 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 28px;
+    color: #4C4541;
+  }
+  
+  /* Admin Info */
+  .admin-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .admin-details {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+  }
+  
+  .admin-role {
+    font-size: 0.8em;
+    color: #999;
+  }
+  
+  .icon-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .icon-button img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .icon-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+  }
+  
+  .icon-button:hover::before {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .admin-name {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .admin-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    align-items: center;
+    background-color: #163317; /* Dark green background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .navbar h2 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  /* Back Icon */
+  .back-icon {
+    color: white;
+    margin-right: 15px;
+  }
+  
+  .back-icon img {
+    width: 24px; /* Adjust the size as needed */
+    height: 24px;
+  }
+  
+  /* Form */
+  .avis-form {
+    display: flex;
+    flex-wrap: wrap; /* Allow fields to be side by side */
+    gap: 20px; /* Space between form fields */
+    justify-content: space-between; /* Distribute fields evenly */
+  }
+  
+  .form-field {
+    margin-bottom: 40px; /* Space below each field */
+    width: calc(50% - 20px); /* Adjusted for even wider spacing */
+  }
+  
+  .form-field label {
+    margin-top: 15px; /* Space above each label */
+    margin-bottom: 15px; /* Space below each label */
+    display: block;
+  }
+  
+  .form-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    width: 100%; /* Ensure buttons are below the form */
+  }
+  
+  /* Form Wrapper */
+  .form-wrapper {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  /* Container */
+  .avis-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #F5F5F5 !important;
+  }
+  
+  /* Top Bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .top-bar h2 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 28px;
+    color: #4C4541;
+  }
+  
+  /* Admin Info */
+  .admin-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .admin-details {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+  }
+  
+  .admin-role {
+    font-size: 0.8em;
+    color: #999;
+  }
+  
+  .icon-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .icon-button img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .icon-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+  }
+  
+  .icon-button:hover::before {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .admin-name {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .admin-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    align-items: center;
+    background-color: #163317; /* Dark green background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .navbar h2 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  /* Back Icon */
+  .back-icon {
+    color: white;
+    margin-right: 15px;
+  }
+  
+  .back-icon img {
+    width: 24px; /* Adjust the size as needed */
+    height: 24px;
+  }
+  
+  /* Form */
+  .avis-form {
+    display: flex;
+    flex-wrap: wrap; /* Allow fields to be side by side */
+    gap: 30px; /* Space between form fields */
+    justify-content: space-between; /* Distribute fields evenly */
+  }
+  
+  /* Space for specific labels */
+  .form-field {
+    margin-bottom: 40px; /* Space below each field */
+    width: calc(50% - 30px); /* Adjusted for even wider spacing */
+  }
+  
+  .form-field label {
+    margin-top: 10px; /* Space above each label */
+    margin-bottom: 10px; /* Space below each label */
+    display: block;
+  }
+  
+  /* Additional space between specific labels */
+  #idAvis-label {
+    margin-bottom: 30px; /* Add space below ID AVIS label */
+  }
+  
+  /* Increase the space between each form field */
+  .avis-form > .form-field:nth-child(2n) {
+    margin-bottom: 30px; /* Space between fields in the same row */
+  }
+  /* Container */
+  .avis-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #F5F5F5 !important;
+  }
+  
+  /* Top Bar */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .top-bar h2 {
+    margin: 0;
+    font-weight: bold;
+    font-size: 28px;
+    color: #4C4541;
+  }
+  
+  /* Admin Info */
+  .admin-info {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  
+  .admin-details {
+    display: flex;
+    flex-direction: column;
+    margin-right: 15px;
+  }
+  
+  .admin-role {
+    font-size: 0.8em;
+    color: #999;
+  }
+  
+  .icon-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+  
+  .icon-button img {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .icon-button::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+  }
+  
+  .icon-button:hover::before {
+    width: 30px;
+    height: 30px;
+  }
+  
+  .admin-name {
+    margin-left: 10px;
+    font-size: 0.9em;
+    color: #666;
+  }
+  
+  .admin-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    align-items: center;
+    background-color: #163317; /* Dark green background */
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .navbar h2 {
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  /* Back Icon */
+  .back-icon {
+    color: white;
+    margin-right: 15px;
+  }
+  
+  .back-icon img {
+    width: 24px; /* Adjust the size as needed */
+    height: 24px;
+  }
+  
+  /* Form */
+  .avis-form {
+    display: flex;
+    flex-wrap: wrap; /* Allow fields to be side by side */
+    gap: 30px; /* Space between form fields */
+    justify-content: space-between; /* Distribute fields evenly */
+  }
+  
+  /* Space for specific labels */
+  .form-field {
+    margin-bottom: 40px; /* Space below each field */
+    width: calc(50% - 30px); /* Adjusted for even wider spacing */
+  }
+  
+  .form-field label {
+    margin-top: 10px; /* Space above each label */
+    margin-bottom: 10px; /* Space below each label */
+    display: block;
+  }
+  
+  /* Additional space between specific labels */
+  #idAvis-label {
+    margin-bottom: 30px; /* Add space below ID AVIS label */
+  }
+  
+  /* Space between labels specifically for the second form field */
+  .form-field:nth-of-type(2) {
+    margin-top: 40px; /* Add space between ID AVIS and Candidat fields */
+  }
+  
+  /* Increase the space between each form field */
+  .avis-form > .form-field:nth-child(2n) {
+    margin-left: 30px; /* Space between fields in the same row */
+  }
+  /* Button Styles */
+  .submit-button {
+    background-color: white; /* White background */
+    border: 2px solid #163317; /* Dark green border */
+    color: #163317; /* Dark green text */
+    padding: 10px 20px; /* Padding for button */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; /* Smooth transition */
+  }
+  
+  .submit-button:hover {
+    background-color: #163317; /* Dark green background on hover */
+    color: white; /* White text on hover */
+    border-color: #163317; /* Dark green border on hover */
+  }
+  /* Space between specific form fields */
+  .form-field {
+    margin-bottom: 40px; /* Space below each field */
+    width: 100%; /* Full width for each field */
+  }
+  
+  /* Additional space between specific fields */
+  .form-field + .form-field {
+    margin-top: 30px; /* Space between consecutive form fields */
+  }
+  
+  

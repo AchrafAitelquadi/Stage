@@ -1,0 +1,88 @@
+.besoins-container {
+  padding: 20px;
+}
+
+.besoins-table {
+  margin-bottom: 20px;
+}
+
+.MuiTableCell-root {
+  border-bottom: none;
+  text-align: center;
+}
+
+.nom-cell {
+  font-weight: bold;
+  color: #003866; /* Dark blue color for the title */
+}
+
+.content-cell {
+  color: #4F4F4F; /* Lighter color for other content */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination span {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.pagination .active {
+  background-color: #003866; /* Dark blue color for the active page */
+  color: white;
+  border-radius: 50%;
+}
+
+.pagination .arrow {
+  font-size: 18px;
+}
+
+.besoins-container .MuiTableRow-root:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+.besoins-container .MuiTableRow-root.checked-row {
+  background-color: #e0f7fa; /* Light blue color when checkbox is checked */
+}
+.dropdown {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000;
+  }
+  
+  .dropdown-item {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .checked-row {
+    background-color: #e0f7fa;
+  }
+  /* Besoins.css */
+.status-complete {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .status-suspendu {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .status-cell {
+    text-align: center;
+  }
+  
